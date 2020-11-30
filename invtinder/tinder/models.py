@@ -14,7 +14,7 @@ class Project(models.Model):
 
 class User(AbstractUser):
     is_investor = models.BooleanField(default=False)
-    company_type = models.TextField(max_length=10)
+    company_type = models.CharField(max_length=10)
     no_list = models.ManyToManyField(Project, related_name="no_list")
     yes_list = models.ManyToManyField(Project, related_name="yes_list")
 
@@ -22,3 +22,6 @@ class User(AbstractUser):
 class Slides(models.Model):
     image = models.FileField(upload_to="videos/")
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Slides"
