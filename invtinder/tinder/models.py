@@ -13,8 +13,10 @@ class Project(models.Model):
 
 
 class User(AbstractUser):
+    # fix to one field
     is_investor = models.BooleanField(default=False)
     company_type = models.CharField(max_length=10)
+    # fix to one table, pass through with bool
     no_list = models.ManyToManyField(Project, related_name="no_list")
     yes_list = models.ManyToManyField(Project, related_name="yes_list")
 
