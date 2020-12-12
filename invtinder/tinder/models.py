@@ -12,18 +12,20 @@ class Project(models.Model):
     pitch_deck = models.FileField(upload_to="pitch_decks/")
 
 
-class User(AbstractUser):
-    # fix to one field
-    is_investor = models.BooleanField(default=False)
-    company_type = models.CharField(max_length=10)
-    # fix to one table, pass through with bool
-    no_list = models.ManyToManyField(Project, related_name="no_list")
-    yes_list = models.ManyToManyField(Project, related_name="yes_list")
-
-
 class Slides(models.Model):
     image = models.FileField(upload_to="videos/")
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Slides"
+
+
+class User(AbstractUser):
+    company_type = models.CharField(max_length=10)
+    choice_list = models.ManyToManyField(Project, through="ChoiceList")
+
+
+class ChoiceList(models.Model):
+    choice_type = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
