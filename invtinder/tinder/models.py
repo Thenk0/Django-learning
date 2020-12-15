@@ -10,10 +10,11 @@ class Project(models.Model):
     video = models.FileField(upload_to="videos/")
     description = models.TextField(max_length=500)
     pitch_deck = models.FileField(upload_to="pitch_decks/")
+    posted_by = models.OneToOneField("User", on_delete=models.CASCADE)
 
 
 class Slides(models.Model):
-    image = models.FileField(upload_to="videos/")
+    image = models.FileField(upload_to="images/")
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     class Meta:
@@ -21,7 +22,15 @@ class Slides(models.Model):
 
 
 class User(AbstractUser):
-    company_type = models.CharField(max_length=10)
+    COMPANY = "Company"
+    FUND = "Fund"
+    PRIVATE = "Private"
+    COMPANY_TYPE_CHOICES = [
+        (COMPANY, "Company"),
+        (PRIVATE, "Private"),
+        (FUND, "Fund"),
+    ]
+    company_type = models.CharField(max_length=10, choices=COMPANY_TYPE_CHOICES)
     choice_list = models.ManyToManyField(Project, through="ChoiceList")
 
 

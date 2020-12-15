@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tinder.apps.TinderConfig",
     "django.contrib.sites",
     # AllAuth apps
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "tinder.apps.TinderConfig",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +60,7 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
-
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 ROOT_URLCONF = "invtinder.urls"
 
 TEMPLATES = [
@@ -78,6 +78,8 @@ TEMPLATES = [
         },
     },
 ]
+
+ACCOUNT_FORMS = {"signup": "tinder.forms.CustomSignUpForm"}
 
 WSGI_APPLICATION = "invtinder.wsgi.application"
 
