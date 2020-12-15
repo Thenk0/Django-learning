@@ -81,6 +81,8 @@ TEMPLATES = [
 
 ACCOUNT_FORMS = {"signup": "tinder.forms.CustomSignUpForm"}
 
+LOGIN_REDIRECT_URL = "/profile/"
+
 WSGI_APPLICATION = "invtinder.wsgi.application"
 
 

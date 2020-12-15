@@ -1,0 +1,20 @@
+{% extends 'tinder/base.html' %}
+
+{% block content %}
+    <div class="container">
+    <h2 class="text-center">User profile</h2>
+    {% if user.is_authenticated %}
+        <h2> User: {{ user.username }} </h2>
+        {% if user.company_type %}
+        <h2>Company type: {{ user.company_type }} </h2>
+        {% endif %}
+        <h2>Projects: </h2>
+    {% elif user.is_authenticated and not user.is_active %}
+        <h1>User is currently inactive</h1>
+    {% else %}
+        <h1>You are curently not logged in, please 
+        <a href="/accounts/signup">sign up</a> or 
+        <a href="/accounts/login">login</a></h1>
+    {% endif %}
+    </div>
+{% endblock content %}

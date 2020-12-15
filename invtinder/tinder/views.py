@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -22,3 +21,9 @@ test = [{"test": 123}]
 def index(request):
     context = {"posts": posts, "test": test}
     return render(request, "tinder/index.html", context)
+
+
+def account_profile(request):
+    user = request.user
+    context = {"user": user}
+    return render(request, "tinder/profile.html", context)
