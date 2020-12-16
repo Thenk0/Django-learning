@@ -1,0 +1,18 @@
+{% extends "tinder/base.html" %}
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+        
+            <form class="" action="add" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+            <input type="submit" value="Submit">
+        
+    {% else %}
+        <h1 class="text-center">Only logged in users can post projects, please 
+        <a href="/accounts/signup">sign up</a> or 
+        <a href="/accounts/login">login</a></h1>
+    {% endif %}
+    </div>
+</form>
+{% endblock %}

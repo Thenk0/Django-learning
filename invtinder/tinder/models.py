@@ -10,7 +10,10 @@ class Project(models.Model):
     video = models.FileField(upload_to="videos/")
     description = models.TextField(max_length=500)
     pitch_deck = models.FileField(upload_to="pitch_decks/")
-    posted_by = models.OneToOneField("User", on_delete=models.CASCADE)
+    posted_by = models.ForeignKey("User", on_delete=models.CASCADE, related_name="projects")
+
+    def __str__(self):
+        return self.name
 
 
 class Slides(models.Model):

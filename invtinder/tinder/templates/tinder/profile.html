@@ -7,8 +7,20 @@
         <h2> User: {{ user.username }} </h2>
         {% if user.company_type %}
         <h2>Company type: {{ user.company_type }} </h2>
+        {% else %}
+        {% comment %}
+            todo: add normal view for different users
+        {% endcomment %}
         {% endif %}
-        <h2>Projects: </h2>
+        <h2>Projects: </h2>'
+        {% for project in projects %}
+            <div class="card">
+                <h2>Name: {{project.name}}</h2>
+                <h2>Description: {{project.description}}</h2>
+            </div>
+        {% empty %}
+            <h3>User doesnt have projects</h3>
+        {% endfor %}
     {% elif user.is_authenticated and not user.is_active %}
         <h1>User is currently inactive</h1>
     {% else %}
