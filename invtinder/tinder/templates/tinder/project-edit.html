@@ -1,0 +1,21 @@
+{% extends "tinder/base.html" %}
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+        <h2>Logged as: {{user.username}} </h2>
+        {% if user == project.posted_by %}
+            <form class="" action="{{project.name}}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+            <input type="submit" value="Submit">
+        {% else %}
+            <h2>Project can only be edited by user that posted it</h2>
+        {% endif %}
+    {% else %}
+        <h1 class="text-center">Only logged in users can edit projects, please 
+        <a href="/accounts/signup">sign up</a> or 
+        <a href="/accounts/login">login</a></h1>
+    {% endif %}
+    </div>
+</form>
+{% endblock %}

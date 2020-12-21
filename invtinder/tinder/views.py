@@ -27,12 +27,14 @@ def index(request):
 def account_profile(request, username=""):
     context = {
         "user": None,
+        "Projects": None,
     }
     if username:
         user = User.objects.get(username=username)
     else:
         user = request.user
-    context["projects"] = user.projects.all()
+    if user.is_authenticated:
+        context["projects"] = user.projects.all()
     context["user"] = user
     return render(request, "tinder/profile.html", context)
 
@@ -55,3 +57,28 @@ def add_project(request):
         context["form"] = ProjectForm()
 
     return render(request, "tinder/project-add.html", context)
+
+
+def edit_project(request, project_name):
+    context = {"user": request.user}
+    project = Project.objects.get(name=project_name)
+    context["project"] = project
+    if request.method == "POST":
+        context["form"] = ProjectForm(request.POST, instance=project)
+        if context["form"].is_valid():
+            project.name = context["form"].cleaned_data.get("name")
+            project.email = context["form"].cleaned_data.get("email")
+            project.phone = context["form"].cleaned_data.get("phone")
+            project.video = context["form"].cleaned_data.get("video")
+            project.description = context["form"].cleaned_data.get("description")
+            project.posted_by = request.user
+            project.save()
+    else:
+        context["form"] = ProjectForm(instance=project)
+    return render(request, "tinder/project-edit.html", context)
+
+
+def view_project(request, project_name):
+    project = Project.objects.get(name=project_name)
+    context = {"project": project}
+    return render(request, "tinder/project-view.html", context)

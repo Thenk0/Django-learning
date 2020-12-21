@@ -41,13 +41,5 @@ class ProjectForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
-        # you can iterate all fields here
         for fname, f in self.fields.items():
             f.widget.attrs["class"] = "form-control"
-
-    # contact_email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={"placeholder": "Contact email"})
-    # contact_phone = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder": "Contact phone"})
-    # project_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder": "Project name"})
-    # description = forms.Textarea(required=False)
-    # video = forms.FileField(required=False)
-    # is_active = forms.BooleanField(required=true, )
